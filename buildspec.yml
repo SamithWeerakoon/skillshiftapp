@@ -8,7 +8,7 @@ env:
   phases:
     install:
       commands:
-        # Install dependencies needed to run Docker
+        # Install dependencies needed to run Docker to
         - echo Installing dependencies...
         - npm install
     pre_build:
