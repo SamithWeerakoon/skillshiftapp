@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
 # Copy the rest of the application code
 COPY . .
@@ -21,6 +21,10 @@ FROM node:18-alpine AS runner
 
 # Set working directory
 WORKDIR /app
+
+# Install only production dependencies
+COPY package.json package-lock.json ./
+RUN npm ci --only=production
 
 # Copy the built application from the builder stage
 COPY --from=builder /app/.next ./.next
