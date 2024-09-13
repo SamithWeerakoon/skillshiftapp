@@ -15,7 +15,7 @@ env:
       commands:
         # Login to Amazon ECR
         - echo Logging in to Amazon ECR...
-        - $(aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin <aws_account_id>.dkr.ecr.$AWS_REGION.amazonaws.com)
+        - $(aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin 967083126936.dkr.ecr.$AWS_REGION.amazonaws.com)
     build:
       commands:
         # Build the Next.js app
@@ -28,15 +28,15 @@ env:
 
         # Tag the image for ECR
         - echo Tagging Docker image...
-        - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG <aws_account_id>.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+        - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG 967083126936.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
     post_build:
       commands:
         # Push the Docker image to ECR
         - echo Pushing Docker image to ECR...
-        - docker push <aws_account_id>.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+        - docker push 967083126936.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
 
         # Optionally: Print image URI for logging
-        - echo Docker Image URI: <aws_account_id>.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+        - echo Docker Image URI: 967083126936.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
 artifacts:
   files:
     - '**/*'
