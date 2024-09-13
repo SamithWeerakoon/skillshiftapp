@@ -2,9 +2,9 @@ version: 0.2
 
 env:
   variables:
-    IMAGE_REPO_NAME: "my-nextjs-app"   # The ECR repository name
-    IMAGE_TAG: "latest"                # The image tag, can use `latest` or a Git hash
-    AWS_REGION: "us-east-1"            # The region where the ECR repository is located
+    IMAGE_REPO_NAME: "my-nextjs-app"   
+    IMAGE_TAG: "latest"                
+    AWS_REGION: "us-east-1"            
 
 phases:
   install:
