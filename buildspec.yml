@@ -7,15 +7,27 @@ env:
     AWS_REGION: "us-east-1"
 
 phases:
+  install:
+    commands:
+      - echo Installing Node.js version 18.12.1 using n...
+      - n 18.12.1  # Ensure you have n installed or this step will fail
+      - echo Installing dependencies...
+      - npm install --save --legacy-peer-deps  # Install necessary dependencies
+
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin 640168451108.dkr.ecr.$AWS_REGION.amazonaws.com
+      - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
 
   build:
     commands:
       - echo Building the Next.js app...
-      - npm run build  # Ensure your app builds correctly
+      - npm run build  # Build your Next.js app
+      - echo Running tests...
+      - npm run test  # Ensure that all tests pass
+      - echo Removing node_modules to reduce Docker image size...
+      - rm -rf node_modules  # Clean up to avoid copying unnecessary files into the Docker image
       - echo Building Docker image...
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .  # Build Docker image
       - echo Tagging Docker image...
@@ -29,3 +41,7 @@ phases:
 artifacts:
   files:
     - '**/*'
+
+cache:
+  paths:
+    - 'node_modules/**/*'  # Cache node_modules for faster builds
