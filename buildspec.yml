@@ -10,7 +10,7 @@ phases:
   install:
     commands:
       - echo Installing Node.js version 18.12.1 using n...
-      - n 18.12.1  # Ensure you have n installed or this step will fail
+      - n 18.20.4  # Ensure you have n installed or this step will fail
       - echo Installing dependencies...
       - npm install --save --legacy-peer-deps  # Install necessary dependencies
 
