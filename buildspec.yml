@@ -2,41 +2,36 @@ version: 0.2
 
 env:
   variables:
-    IMAGE_REPO_NAME: "my-nextjs-app" # The ECR repository name
-    IMAGE_TAG: "latest"              # The image tag, can use `latest` or a Git hash
-    AWS_REGION: "us-east-1"          # The region where the ECR repository is located
-  phases:
-    install:
-      commands:
-        # Install dependencies needed to run Docker to
-        - echo Installing dependencies...
-        - npm install
-    pre_build:
-      commands:
-        # Login to Amazon ECR
-        - echo Logging in to Amazon ECR...
-        - $(aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin 967083126936.dkr.ecr.$AWS_REGION.amazonaws.com)
-    build:
-      commands:
-        # Build the Next.js app
-        - echo Building the Next.js app...
-        - npm run build
+    IMAGE_REPO_NAME: "my-nextjs-app"   # The ECR repository name
+    IMAGE_TAG: "latest"                # The image tag, can use `latest` or a Git hash
+    AWS_REGION: "us-east-1"            # The region where the ECR repository is located
 
-        # Build the Docker image
-        - echo Building Docker image...
-        - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+      - npm install
 
-        # Tag the image for ECR
-        - echo Tagging Docker image...
-        - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG 967083126936.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
-    post_build:
-      commands:
-        # Push the Docker image to ECR
-        - echo Pushing Docker image to ECR...
-        - docker push 967083126936.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin 967083126936.dkr.ecr.$AWS_REGION.amazonaws.com
 
-        # Optionally: Print image URI for logging
-        - echo Docker Image URI: 967083126936.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+  build:
+    commands:
+      - echo Building the Next.js app...
+      - npm run build
+      - echo Building Docker image...
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - echo Tagging Docker image...
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG 967083126936.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+
+  post_build:
+    commands:
+      - echo Pushing Docker image to ECR...
+      - docker push 967083126936.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - echo Docker Image URI: 967083126936.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+
 artifacts:
   files:
     - '**/*'
