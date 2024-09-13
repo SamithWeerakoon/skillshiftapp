@@ -12,7 +12,7 @@ phases:
   install:
     commands:
       - echo Installing dependencies...
-      - npm install --verbose  # Install dependencies
+      - npm install --verbose
 
   pre_build:
     commands:
