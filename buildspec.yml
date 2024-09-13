@@ -2,9 +2,9 @@ version: 0.2
 
 env:
   variables:
-    IMAGE_REPO_NAME: "my-nextjs-app"   
-    IMAGE_TAG: "latest"                
-    AWS_REGION: "us-east-1"            
+    IMAGE_REPO_NAME: "skill-shift"   # The ECR repository name
+    IMAGE_TAG: "latest"              # The image tag
+    AWS_REGION: "us-east-1"          # The AWS region
 
 phases:
   install:
