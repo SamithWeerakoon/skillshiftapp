@@ -5,15 +5,8 @@ env:
     IMAGE_REPO_NAME: "skill-shift"
     IMAGE_TAG: "latest"
     AWS_REGION: "us-east-1"
-  runtime-versions:
-    nodejs: 18  # Specify Node.js version 18 to match your Dockerfile
 
 phases:
-  install:
-    commands:
-      - echo Installing dependencies...
-      - npm install --verbose
-
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
@@ -22,16 +15,16 @@ phases:
   build:
     commands:
       - echo Building the Next.js app...
-      - npm run build
+      - npm run build  # Ensure your app builds correctly
       - echo Building Docker image...
-      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .  # Build Docker image
       - echo Tagging Docker image...
-      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG 640168451108.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG 640168451108.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG  # Tag image for ECR
 
   post_build:
     commands:
       - echo Pushing Docker image to ECR...
-      - docker push 640168451108.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker push 640168451108.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG  # Push image to ECR
 
 artifacts:
   files:
