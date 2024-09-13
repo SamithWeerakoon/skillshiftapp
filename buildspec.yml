@@ -2,15 +2,16 @@ version: 0.2
 
 env:
   variables:
-    IMAGE_REPO_NAME: "skill-shift"   # The ECR repository name
-    IMAGE_TAG: "latest"              # The image tag
-    AWS_REGION: "us-east-1"          # The AWS region
+    IMAGE_REPO_NAME: "skill-shift"
+    IMAGE_TAG: "latest"
+    AWS_REGION: "us-east-1"
 
 phases:
   install:
     commands:
       - echo Installing dependencies...
-      - npm install
+      - npm install -g npm@latest  # Upgrade npm
+      - npm install --verbose       # Install dependencies with verbose output
 
   pre_build:
     commands:
