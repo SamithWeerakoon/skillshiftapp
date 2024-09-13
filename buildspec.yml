@@ -5,13 +5,14 @@ env:
     IMAGE_REPO_NAME: "skill-shift"
     IMAGE_TAG: "latest"
     AWS_REGION: "us-east-1"
+  runtime-versions:
+    nodejs: 18  # Specify Node.js version 18 to match your Dockerfile
 
 phases:
   install:
     commands:
       - echo Installing dependencies...
-      - npm install -g npm@latest  # Upgrade npm
-      - npm install --verbose       # Install dependencies with verbose output
+      - npm install --verbose  # Install dependencies
 
   pre_build:
     commands:
