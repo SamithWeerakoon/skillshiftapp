@@ -35,12 +35,13 @@ export default async function Dashboard() {
             <a href="#" className="block p-2 bg-gray-300 rounded">Students</a>
             <a href="#" className="block p-2 bg-gray-300 rounded">Schedule</a>
             <a href="#" className="block p-2 bg-gray-300 rounded">Settings</a>
+            <a href="#" className="block p-2 bg-gray-300 rounded">Results</a>
           </nav>
         </div>
 
         {/* Main Content */}
         <div className="flex-1 p-10">
-          <h1 className="text-3xl font-bold mb-4">Welcome to the Dashboard</h1>
+          <h1 className="text-3xl font-bold mb-4">Welcome to the Sumaga Learners</h1>
 
           {/* Timeline Section */}
           <div className="mt-8">
