@@ -7,7 +7,6 @@ async function fetchTimeline() {
     'Instructor John completed 5 lessons today',
     'New student Mike enrolled',
     '3 lessons scheduled for tomorrow',
-    'Car maintenance scheduled for next week',
   ];
 
   // Simulate server-side fetching delay
