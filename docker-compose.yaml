@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile   # Make sure this points to your Dockerfile location
+    container_name: skillappsnew
+    platform: linux/amd64
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: "https://api.example.com"
+      SECRET_KEY: "your-secret-key"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    restart: always
